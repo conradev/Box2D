@@ -67,6 +67,8 @@ using namespace std;
 
 TestEntry g_testEntries[] =
 {
+	{"Body Types", BodyTypes::Create},
+	{"Shape Editing", ShapeEditing::Create},
 	{"Tiles", Tiles::Create},
 	{"Gears", Gears::Create},
 	{"Car", Car::Create},
@@ -92,7 +94,6 @@ TestEntry g_testEntries[] =
 	{"Pyramid", Pyramid::Create},
 	{"Varying Restitution", VaryingRestitution::Create},
 	{"Theo Jansen's Walker", TheoJansen::Create},
-	{"Body Types", BodyTypes::Create},
 	{"Edge Shapes", EdgeShapes::Create},
 	{"PolyCollision", PolyCollision::Create},
 	{"Cantilever", Cantilever::Create},
@@ -106,7 +107,6 @@ TestEntry g_testEntries[] =
 	{"Dominos", Dominos::Create},
 	{"Dynamic Tree", DynamicTreeTest::Create},
 	{"Sensor Test", SensorTest::Create},
-	{"Shape Editing", ShapeEditing::Create},
 	{"Slider Crank", SliderCrank::Create},
 	{"Varying Friction", VaryingFriction::Create},
 	{NULL, NULL}
