@@ -21,7 +21,7 @@
 
 /// This is a test of typical character collision scenarios. This does not
 /// show how you should implement a character in your application.
-
+/// Instead this is used to test smooth collision on edge chains.
 class CharacterCollision : public Test
 {
 public:
@@ -56,6 +56,7 @@ public:
 		// Chain shape
 		{
 			b2BodyDef bd;
+			bd.angle = 0.25f * b2_pi;
 			b2Body* ground = m_world->CreateBody(&bd);
 
 			b2Vec2 vs[4];
@@ -214,7 +215,7 @@ public:
 		m_textLine += 15;
 		m_debugDraw.DrawString(5, m_textLine, "Limitation: square and hexagon can snag on aligned boxes.");
 		m_textLine += 15;
-		m_debugDraw.DrawString(5, m_textLine, "Feature: loops have smooth collision inside and out.");
+		m_debugDraw.DrawString(5, m_textLine, "Feature: edge chains have smooth collision inside and out.");
 		m_textLine += 15;
 	}
 
