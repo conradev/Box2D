@@ -44,16 +44,19 @@
 b2GearJoint::b2GearJoint(const b2GearJointDef* def)
 : b2Joint(def)
 {
-	m_typeA = def->joint1->GetType();
-	m_typeB = def->joint2->GetType();
+	m_joint1 = def->joint1;
+	m_joint2 = def->joint2;
+
+	m_typeA = m_joint1->GetType();
+	m_typeB = m_joint2->GetType();
 
 	b2Assert(m_typeA == e_revoluteJoint || m_typeA == e_prismaticJoint);
 	b2Assert(m_typeB == e_revoluteJoint || m_typeB == e_prismaticJoint);
 
 	float32 coordinateA, coordinateB;
 
-	m_bodyC = def->joint1->GetBodyA();
-	m_bodyA = def->joint1->GetBodyB();
+	m_bodyC = m_joint1->GetBodyA();
+	m_bodyA = m_joint1->GetBodyB();
 
 	// Get geometry of joint1
 	b2Transform xfA = m_bodyA->m_xf;
@@ -84,8 +87,8 @@ b2GearJoint::b2GearJoint(const b2GearJointDef* def)
 		coordinateA = b2Dot(pA - pC, m_localAxisC);
 	}
 
-	m_bodyD = def->joint2->GetBodyA();
-	m_bodyB = def->joint2->GetBodyB();
+	m_bodyD = m_joint2->GetBodyA();
+	m_bodyB = m_joint2->GetBodyB();
 
 	// Get geometry of joint2
 	b2Transform xfB = m_bodyB->m_xf;
@@ -397,4 +400,22 @@ void b2GearJoint::SetRatio(float32 ratio)
 float32 b2GearJoint::GetRatio() const
 {
 	return m_ratio;
+}
+
+void b2GearJoint::Dump()
+{
+	int32 indexA = m_bodyA->m_islandIndex;
+	int32 indexB = m_bodyB->m_islandIndex;
+
+	int32 index1 = m_joint1->m_index;
+	int32 index2 = m_joint2->m_index;
+
+	b2Log("  b2GearJointDef jd;\n");
+	b2Log("  jd.bodyA = bodies[%d];\n", indexA);
+	b2Log("  jd.bodyB = bodies[%d];\n", indexB);
+	b2Log("  jd.collideConnected = bool(%d);\n", m_collideConnected);
+	b2Log("  jd.joint1 = joints[%d];\n", index1);
+	b2Log("  jd.joint2 = joints[%d];\n", index2);
+	b2Log("  jd.ratio = %.15lef;\n", m_ratio);
+	b2Log("  joints[%d] = m_world->CreateJoint(&jd);\n", m_index);
 }
