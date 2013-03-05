@@ -66,11 +66,11 @@ public:
 		b2TimeOfImpact(&output, &input);
 
 		m_debugDraw.DrawString(5, m_textLine, "toi = %g", output.t);
-		m_textLine += 15;
+		m_textLine += DRAW_STRING_NEW_LINE;
 
 		extern int32 b2_toiMaxIters, b2_toiMaxRootIters;
 		m_debugDraw.DrawString(5, m_textLine, "max toi iters = %d, max root iters = %d", b2_toiMaxIters, b2_toiMaxRootIters);
-		m_textLine += 15;
+		m_textLine += DRAW_STRING_NEW_LINE;
 
 		b2Vec2 vertices[b2_maxPolygonVertices];
 
@@ -85,11 +85,7 @@ public:
 		b2Transform transformB;
 		sweepB.GetTransform(&transformB, 0.0f);
 		
-		b2Vec2 localPoint(2.0f, -0.1f);
-		b2Vec2 rB = b2Mul(transformB, localPoint) - sweepB.c0;
-		float32 wB = sweepB.a - sweepB.a0;
-		b2Vec2 vB = sweepB.c - sweepB.c0;
-		b2Vec2 v = vB + b2Cross(wB, rB);
+		//b2Vec2 localPoint(2.0f, -0.1f);
 
 		for (int32 i = 0; i < m_shapeB.m_count; ++i)
 		{
